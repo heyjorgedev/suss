@@ -1,4 +1,4 @@
-module github.com/heyjorgedev/ssus
+module github.com/heyjorgedev/suss
 
 go 1.25.1
 

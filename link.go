@@ -1,3 +1,3 @@
-package ssus
+package suss
 
 type Link struct{}

@@ -10,8 +10,8 @@ import (
 	"github.com/benbjohnson/hashfs"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
-	"github.com/heyjorgedev/ssus/http/dist"
-	"github.com/heyjorgedev/ssus/http/html"
+	"github.com/heyjorgedev/suss/http/dist"
+	"github.com/heyjorgedev/suss/http/html"
 )
 
 // time to wait for the server to finish processing requests when shutting down

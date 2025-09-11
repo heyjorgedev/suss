@@ -1,4 +1,4 @@
-package ssus
+package suss
 
 var (
 	Version string

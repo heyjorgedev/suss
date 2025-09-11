@@ -53,7 +53,7 @@ func Homepage() templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<title>Short a Link | SSus</title>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<title>Short a Link | SuSS</title>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

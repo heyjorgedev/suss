@@ -10,7 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"fmt"
-	"github.com/heyjorgedev/ssus/http/dist"
+	"github.com/heyjorgedev/suss/http/dist"
 )
 
 func html() templ.Component {

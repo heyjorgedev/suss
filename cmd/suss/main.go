@@ -6,15 +6,15 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/heyjorgedev/ssus"
-	"github.com/heyjorgedev/ssus/http"
-	"github.com/heyjorgedev/ssus/sqlite"
+	"github.com/heyjorgedev/suss"
+	"github.com/heyjorgedev/suss/http"
+	"github.com/heyjorgedev/suss/sqlite"
 )
 
 func main() {
 
-	ssus.Version = "0.0.1"
-	ssus.Commit = "1234567890"
+	suss.Version = "0.0.1"
+	suss.Commit = "1234567890"
 
 	// setup signal handlers
 	ctx, _ := signal.NotifyContext(context.Background(), os.Interrupt)
