@@ -1,5 +1,7 @@
 package suss
 
+import "context"
+
 type ShortURL struct {
 	ID        int    `json:"id"`
 	Slug      string `json:"slug"`
@@ -7,6 +9,10 @@ type ShortURL struct {
 	SecretKey string `json:"secret_key"`
 }
 
+func (s *ShortURL) Validate() error {
+	return nil
+}
+
 type ShortURLService interface {
-	Create(shortURL *ShortURL) error
+	Create(ctx context.Context, shortURL *ShortURL) error
 }

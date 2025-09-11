@@ -42,8 +42,10 @@ func NewServer() *Server {
 
 	// register routes
 	r.Get("/", templ.Handler(html.Homepage()).ServeHTTP)
-
 	r.Post("/shorten", s.handlerShortUrlCreate())
+	r.Get("/preview/{slug}", s.handlerShortUrlPreview())
+	r.Get("/{slug}+", s.handlerShortUrlPreview())
+	r.Get("/{slug}", s.handlerShortUrlVisit())
 
 	return s
 }
