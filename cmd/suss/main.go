@@ -60,6 +60,10 @@ func (p *Program) Run(ctx context.Context) error {
 
 	// configure http server
 	p.HTTPServer.Addr = ":8080"
+	port := os.Getenv("PORT")
+	if port != "" {
+		p.HTTPServer.Addr = ":" + port
+	}
 
 	// start the http server
 	if err := p.HTTPServer.Open(); err != nil {

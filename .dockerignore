@@ -1,0 +1,5 @@
+node_modules/
+tmp/
+http/dist/css/
+http/html/*_templ.go
+Dockerfile
