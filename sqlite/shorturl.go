@@ -15,3 +15,7 @@ func NewShortURLService(db *DB) *ShortURLService {
 func (s *ShortURLService) Create(shortURL *suss.ShortURL) error {
 	return nil
 }
+
+func shortUrlCreate(tx *Tx, shortURL *suss.ShortURL) error {
+	return nil
+}
