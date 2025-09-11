@@ -6,8 +6,12 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/a-h/templ"
+	"github.com/benbjohnson/hashfs"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
+	"github.com/heyjorgedev/ssus/http/dist"
+	"github.com/heyjorgedev/ssus/http/html"
 )
 
 // time to wait for the server to finish processing requests when shutting down
@@ -30,7 +34,10 @@ func NewServer() *Server {
 	}
 	s.server.Handler = http.HandlerFunc(s.serveHTTP)
 	r.Use(middleware.Recoverer)
-	r.Handle("/static/*", http.StripPrefix("/static/", fs))
+	r.Handle("/assets/*", http.StripPrefix("/assets/", hashfs.FileServer(dist.FS)))
+
+	// register routes
+	r.Get("/", templ.Handler(html.Homepage()).ServeHTTP)
 
 	return s
 }

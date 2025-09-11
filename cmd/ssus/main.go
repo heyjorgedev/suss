@@ -7,6 +7,7 @@ import (
 	"os/signal"
 
 	"github.com/heyjorgedev/ssus"
+	"github.com/heyjorgedev/ssus/http"
 	"github.com/heyjorgedev/ssus/sqlite"
 )
 
@@ -37,12 +38,17 @@ func main() {
 }
 
 type Program struct {
+	// sqlite database
 	DB *sqlite.DB
+
+	// http server
+	HTTPServer *http.Server
 }
 
 func NewProgram() *Program {
 	return &Program{
-		DB: sqlite.NewDB(":memory:"),
+		DB:         sqlite.NewDB(":memory:"),
+		HTTPServer: http.NewServer(),
 	}
 }
 
@@ -50,6 +56,14 @@ func (p *Program) Run(ctx context.Context) error {
 	// open the database, configure it and migrate to latest version
 	if err := p.DB.Open(); err != nil {
 		return fmt.Errorf("cannot open db: %w", err)
+	}
+
+	// configure http server
+	p.HTTPServer.Addr = ":8080"
+
+	// start the http server
+	if err := p.HTTPServer.Open(); err != nil {
+		return err
 	}
 
 	return nil

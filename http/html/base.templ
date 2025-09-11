@@ -1,0 +1,29 @@
+package html
+
+import (
+	"fmt"
+	"github.com/heyjorgedev/ssus/http/dist"
+)
+
+templ html() {
+	<!DOCTYPE html>
+	<html>
+		{ children... }
+	</html>
+}
+
+templ head() {
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		{ children... }
+		<!-- Styles -->
+		<link rel="stylesheet" href={ fmt.Sprintf("/assets/%s", dist.FS.HashName("css/app.css")) }/>
+	</head>
+}
+
+templ body() {
+	<body>
+		{ children... }
+	</body>
+}

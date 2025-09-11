@@ -1,7 +1,14 @@
 package html
 
 templ Hello(name string) {
-	<div>
-		<div>Hello, { name }!</div>
-	</div>
+	@html() {
+		@head() {
+			<title>Hello, { name }!</title>
+		}
+		@body() {
+			<div>
+				<div class="text-2xl">Hello, { name }!</div>
+			</div>
+		}
+	}
 }
