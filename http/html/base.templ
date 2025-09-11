@@ -17,13 +17,16 @@ templ head() {
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		{ children... }
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.bunny.net"/>
+		<link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900" rel="stylesheet"/>
 		<!-- Styles -->
 		<link rel="stylesheet" href={ fmt.Sprintf("/assets/%s", dist.FS.HashName("css/app.css")) }/>
 	</head>
 }
 
 templ body() {
-	<body>
+	<body class="antialiased text-black dark:text-white bg-zinc-100 dark:bg-zinc-950">
 		{ children... }
 	</body>
 }
