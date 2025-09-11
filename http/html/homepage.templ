@@ -13,9 +13,10 @@ templ Homepage() {
 					<p class="lg:text-center">Because who got time to register for another service just to shorten a url?</p>
 				</div>
 				<div>
-					<form>
+					<form method="post" action="/shorten">
 						<div class="bg-zinc-200/80 dark:bg-zinc-800/60 rounded-xl p-2 flex flex-col sm:flex-row items-center gap-2 shadow-lg/2 ring-1 ring-zinc-100/80 dark:ring-zinc-800">
 							<input
+								name="url"
 								class="flex-1 h-16 bg-zinc-100 dark:bg-zinc-700 w-full rounded-lg text-lg font-medium p-4 placeholder:text-zinc-500 ring-1 ring-zinc-200 dark:ring-zinc-600"
 								placeholder="Paste here your long url"
 							/>

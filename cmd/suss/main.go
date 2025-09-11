@@ -43,6 +43,9 @@ type Program struct {
 
 	// http server
 	HTTPServer *http.Server
+
+	// services
+	ShortURLService suss.ShortURLService
 }
 
 func NewProgram() *Program {
@@ -57,6 +60,12 @@ func (p *Program) Run(ctx context.Context) error {
 	if err := p.DB.Open(); err != nil {
 		return fmt.Errorf("cannot open db: %w", err)
 	}
+
+	// initialize services
+	p.ShortURLService = sqlite.NewShortURLService(p.DB)
+
+	// bind services to http server
+	p.HTTPServer.ShortURLService = p.ShortURLService
 
 	// configure http server
 	p.HTTPServer.Addr = ":8080"

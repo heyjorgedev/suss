@@ -10,6 +10,7 @@ import (
 	"github.com/benbjohnson/hashfs"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
+	"github.com/heyjorgedev/suss"
 	"github.com/heyjorgedev/suss/http/dist"
 	"github.com/heyjorgedev/suss/http/html"
 )
@@ -24,6 +25,9 @@ type Server struct {
 
 	// address to listen on
 	Addr string
+
+	// dependent services to use
+	ShortURLService suss.ShortURLService
 }
 
 func NewServer() *Server {
@@ -38,6 +42,8 @@ func NewServer() *Server {
 
 	// register routes
 	r.Get("/", templ.Handler(html.Homepage()).ServeHTTP)
+
+	r.Post("/shorten", s.handlerShortUrlCreate())
 
 	return s
 }
