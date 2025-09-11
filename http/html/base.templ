@@ -17,6 +17,13 @@ templ head() {
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		{ children... }
+		<!-- Metadata -->
+		<link rel="icon" type="image/png" href={ fmt.Sprintf("/assets/%s", dist.FS.HashName("favicon/favicon-96x96.png")) } sizes="96x96"/>
+		<link rel="icon" type="image/svg+xml" href={ fmt.Sprintf("/assets/%s", dist.FS.HashName("favicon/favicon.svg")) }/>
+		<link rel="shortcut icon" href={ fmt.Sprintf("/assets/%s", dist.FS.HashName("favicon/favicon.ico")) }/>
+		<link rel="apple-touch-icon" sizes="180x180" href={ fmt.Sprintf("/assets/%s", dist.FS.HashName("favicon/apple-touch-icon.png")) }/>
+		<meta name="apple-mobile-web-app-title" content="SuSS"/>
+		<link rel="manifest" href={ fmt.Sprintf("/assets/%s", dist.FS.HashName("favicon/site.webmanifest")) }/>
 		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.bunny.net"/>
 		<link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900" rel="stylesheet"/>

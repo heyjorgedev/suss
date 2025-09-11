@@ -79,20 +79,85 @@ func head() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<!-- Fonts --><link rel=\"preconnect\" href=\"https://fonts.bunny.net\"><link href=\"https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900\" rel=\"stylesheet\"><!-- Styles --><link rel=\"stylesheet\" href=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<!-- Metadata --><link rel=\"icon\" type=\"image/png\" href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 templ.SafeURL
-		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinURLErrs(fmt.Sprintf("/assets/%s", dist.FS.HashName("css/app.css")))
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinURLErrs(fmt.Sprintf("/assets/%s", dist.FS.HashName("favicon/favicon-96x96.png")))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/base.templ`, Line: 24, Col: 90}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/base.templ`, Line: 21, Col: 115}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "\"></head>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "\" sizes=\"96x96\"><link rel=\"icon\" type=\"image/svg+xml\" href=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var4 templ.SafeURL
+		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinURLErrs(fmt.Sprintf("/assets/%s", dist.FS.HashName("favicon/favicon.svg")))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/base.templ`, Line: 22, Col: 113}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\"><link rel=\"shortcut icon\" href=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var5 templ.SafeURL
+		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinURLErrs(fmt.Sprintf("/assets/%s", dist.FS.HashName("favicon/favicon.ico")))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/base.templ`, Line: 23, Col: 101}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var6 templ.SafeURL
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinURLErrs(fmt.Sprintf("/assets/%s", dist.FS.HashName("favicon/apple-touch-icon.png")))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/base.templ`, Line: 24, Col: 129}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\"><meta name=\"apple-mobile-web-app-title\" content=\"SuSS\"><link rel=\"manifest\" href=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var7 templ.SafeURL
+		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinURLErrs(fmt.Sprintf("/assets/%s", dist.FS.HashName("favicon/site.webmanifest")))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/base.templ`, Line: 26, Col: 101}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "\"><!-- Fonts --><link rel=\"preconnect\" href=\"https://fonts.bunny.net\"><link href=\"https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900\" rel=\"stylesheet\"><!-- Styles --><link rel=\"stylesheet\" href=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var8 templ.SafeURL
+		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinURLErrs(fmt.Sprintf("/assets/%s", dist.FS.HashName("css/app.css")))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/base.templ`, Line: 31, Col: 90}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "\"></head>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -116,20 +181,20 @@ func body() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var4 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var4 == nil {
-			templ_7745c5c3_Var4 = templ.NopComponent
+		templ_7745c5c3_Var9 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var9 == nil {
+			templ_7745c5c3_Var9 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<body class=\"antialiased text-black dark:text-white bg-zinc-100 dark:bg-zinc-950\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<body class=\"antialiased text-black dark:text-white bg-zinc-100 dark:bg-zinc-950\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ_7745c5c3_Var4.Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = templ_7745c5c3_Var9.Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</body>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "</body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
