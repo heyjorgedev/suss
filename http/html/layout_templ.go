@@ -29,7 +29,7 @@ func header() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<header class=\"flex p-6\"><div class=\"p-3 pr-8 text-base tracking-tight border-zinc-700 dark:border-zinc-300 text-zinc-700 dark:text-zinc-400 rounded-r-xl\"><span class=\"font-semibold text-zinc-900 dark:text-zinc-100\">S</span>imple <span class=\"font-semibold text-zinc-900 dark:text-zinc-100\">U</span>rl <span class=\"font-semibold text-zinc-900 dark:text-zinc-100\">S</span>hortner <span class=\"font-semibold text-zinc-900 dark:text-zinc-100\">S</span>ervice</div></header>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<header class=\"flex p-6\"><div class=\"text-base tracking-tight border-zinc-700 dark:border-zinc-300 text-zinc-700 dark:text-zinc-400 rounded-r-xl\"><span class=\"font-semibold text-zinc-900 dark:text-zinc-100\">S</span>imple <span class=\"font-semibold text-zinc-900 dark:text-zinc-100\">U</span>rl <span class=\"font-semibold text-zinc-900 dark:text-zinc-100\">S</span>hortner <span class=\"font-semibold text-zinc-900 dark:text-zinc-100\">S</span>ervice</div></header>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
