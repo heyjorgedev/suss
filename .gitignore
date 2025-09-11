@@ -30,6 +30,8 @@ go.work.sum
 
 # Frontend dependencies
 node_modules/
+http/dist/*
+!http/dist/.gitkeep
 
 # Air
 tmp/

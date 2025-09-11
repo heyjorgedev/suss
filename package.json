@@ -2,7 +2,7 @@
   "name": "ssus",
   "private": true,
   "scripts": {
-    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css"
+    "build": "npx @tailwindcss/cli -i ./http/assets/tailwind.css -o ./http/dist/app.css"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.13",
