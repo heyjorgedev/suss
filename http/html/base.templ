@@ -37,3 +37,7 @@ templ body() {
 		{ children... }
 	</body>
 }
+
+templ ogImage() {
+	<meta property="og:image" content={ fmt.Sprintf("/assets/%s", dist.FS.HashName("img/og-image.png")) }/>
+}
