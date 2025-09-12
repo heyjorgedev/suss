@@ -38,7 +38,9 @@ func NewServer() *Server {
 	}
 	s.server.Handler = http.HandlerFunc(s.serveHTTP)
 	r.Use(middleware.Recoverer)
+	r.Use(middleware.GetHead)
 	r.Handle("/assets/*", http.StripPrefix("/assets/", hashfs.FileServer(dist.FS)))
+	r.NotFound(templ.Handler(html.NotFoundPage()).ServeHTTP)
 
 	// register routes
 	r.Get("/", templ.Handler(html.Homepage()).ServeHTTP)
