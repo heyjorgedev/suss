@@ -8,8 +8,8 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/benbjohnson/hashfs"
-	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/heyjorgedev/suss"
 	"github.com/heyjorgedev/suss/http/dist"
 	"github.com/heyjorgedev/suss/http/html"
@@ -37,8 +37,16 @@ func NewServer() *Server {
 		router: r,
 	}
 	s.server.Handler = http.HandlerFunc(s.serveHTTP)
-	r.Use(middleware.Recoverer)
+
+	r.Use(middleware.RequestID)
+	r.Use(middleware.RealIP)
+	r.Use(middleware.Logger)
 	r.Use(middleware.GetHead)
+	r.Use(middleware.Recoverer)
+
+	// setup a timeout
+	r.Use(middleware.Timeout(60 * time.Second))
+
 	r.Handle("/assets/*", http.StripPrefix("/assets/", hashfs.FileServer(dist.FS)))
 	r.NotFound(templ.Handler(html.NotFoundPage()).ServeHTTP)
 
