@@ -228,9 +228,9 @@ func ogImage() templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var11 string
-		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/assets/%s", dist.FS.HashName("img/og-image.png")))
+		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%s/assets/%s", ctx.Value("url"), dist.FS.HashName("img/og-image.png")))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/base.templ`, Line: 42, Col: 100}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/base.templ`, Line: 42, Col: 120}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 		if templ_7745c5c3_Err != nil {

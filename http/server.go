@@ -2,6 +2,7 @@ package http
 
 import (
 	"context"
+	"fmt"
 	"net"
 	"net/http"
 	"time"
@@ -44,6 +45,7 @@ func NewServer() *Server {
 	r.Use(middleware.Logger)
 	r.Use(middleware.GetHead)
 	r.Use(httprate.LimitByIP(100, time.Minute))
+	r.Use(s.middlewareHost)
 	r.Use(middleware.Recoverer)
 
 	// setup a timeout
@@ -53,7 +55,7 @@ func NewServer() *Server {
 	r.NotFound(templ.Handler(html.NotFoundPage()).ServeHTTP)
 
 	// register routes
-	r.Get("/", templ.Handler(html.Homepage()).ServeHTTP)
+	r.Get("/", s.handlerHomepage())
 	r.Post("/shorten", s.handlerShortUrlCreate())
 	r.Get("/preview/{slug}", s.handlerShortUrlPreview())
 	r.Get("/{slug}+", s.handlerShortUrlPreview())
@@ -90,4 +92,38 @@ func (s *Server) serveHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	s.router.ServeHTTP(w, r)
+}
+
+func (s *Server) Scheme(r *http.Request) string {
+	if proto := r.Header.Get("X-Forwarded-Proto"); proto != "" {
+		return proto
+	}
+
+	if r.TLS != nil {
+		return "https"
+	}
+
+	return "http"
+}
+
+func (s *Server) Host(r *http.Request) string {
+	// check the X-Forwarded-Host header first (set by reverse proxies)
+	if host := r.Header.Get("X-Forwarded-Host"); host != "" {
+		return host
+	}
+
+	// fallback to the Host header from the request
+	if r.Host != "" {
+		return r.Host
+	}
+
+	// as a last resort, fallback to URL host
+	return r.URL.Host
+}
+
+func (s *Server) PublicURL(r *http.Request) string {
+	scheme := s.Scheme(r)
+	domain := s.Host(r)
+
+	return fmt.Sprintf("%s://%s", scheme, domain)
 }

@@ -8,7 +8,14 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/httprate"
 	"github.com/heyjorgedev/suss"
+	"github.com/heyjorgedev/suss/http/html"
 )
+
+func (s *Server) handlerHomepage() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		html.Homepage().Render(r.Context(), w)
+	}
+}
 
 func (s *Server) handlerShortUrlCreate() http.HandlerFunc {
 	rateLimiter := httprate.NewRateLimiter(5, time.Minute, httprate.WithKeyByIP())
@@ -53,7 +60,10 @@ func (s *Server) handlerShortUrlPreview() http.HandlerFunc {
 			return
 		}
 
-		w.Write([]byte(shortUrl.LongURL))
+		html.PreviewPage(html.PreviewPageProps{
+			Url:      shortUrl.ShortURL(s.PublicURL(r)),
+			ShortURL: shortUrl,
+		}).Render(r.Context(), w)
 	}
 }
 

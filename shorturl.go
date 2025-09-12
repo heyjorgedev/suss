@@ -2,6 +2,7 @@ package suss
 
 import (
 	"context"
+	"fmt"
 	"time"
 )
 
@@ -13,6 +14,10 @@ type ShortURL struct {
 
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+}
+
+func (s *ShortURL) ShortURL(host string) string {
+	return fmt.Sprintf("%s/%s", host, s.Slug)
 }
 
 func (s *ShortURL) Validate() error {

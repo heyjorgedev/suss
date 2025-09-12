@@ -38,25 +38,32 @@ func main() {
 }
 
 type Config struct {
-	Key string
+	EncryptionKey string
+	HashKey       string
 
 	DB struct {
 		DSN string
 	}
 
-	Hostname string
-	Port     int
+	HTTP struct {
+		Hostname string
+		Port     int
+	}
 }
 
 func DefaultConfig() *Config {
 	config := &Config{}
 
+	// encryption
+	config.EncryptionKey = ""
+	config.HashKey = ""
+
 	// database
 	config.DB.DSN = ":memory:"
 
 	// http
-	config.Hostname = "0.0.0.0"
-	config.Port = 8080
+	config.HTTP.Hostname = "0.0.0.0"
+	config.HTTP.Port = 8080
 
 	return config
 }
@@ -64,6 +71,19 @@ func DefaultConfig() *Config {
 func GetConfigFromEnv() (*Config, error) {
 	config := DefaultConfig()
 
+	// configure hash key
+	hashKey := os.Getenv("HASH_KEY")
+	if hashKey != "" {
+		config.HashKey = hashKey
+	}
+
+	// configure encryption key
+	encryptionKey := os.Getenv("ENCRYPTION_KEY")
+	if encryptionKey != "" {
+		config.EncryptionKey = encryptionKey
+	}
+
+	// configure database
 	dsn := os.Getenv("DB_DSN")
 	if dsn != "" {
 		config.DB.DSN = dsn
@@ -71,7 +91,7 @@ func GetConfigFromEnv() (*Config, error) {
 
 	hostname := os.Getenv("HOSTNAME")
 	if hostname != "" {
-		config.Hostname = hostname
+		config.HTTP.Hostname = hostname
 	}
 
 	port := os.Getenv("PORT")
@@ -80,7 +100,7 @@ func GetConfigFromEnv() (*Config, error) {
 		if err != nil {
 			return config, fmt.Errorf("invalid port: %w", err)
 		}
-		config.Port = portInt
+		config.HTTP.Port = portInt
 	}
 
 	return config, nil
@@ -129,7 +149,7 @@ func (p *Program) Run(ctx context.Context) error {
 	p.HTTPServer.ShortURLService = p.ShortURLService
 
 	// configure http server
-	p.HTTPServer.Addr = fmt.Sprintf("%s:%d", p.Config.Hostname, p.Config.Port)
+	p.HTTPServer.Addr = fmt.Sprintf("%s:%d", p.Config.HTTP.Hostname, p.Config.HTTP.Port)
 
 	// start the http server
 	if err := p.HTTPServer.Open(); err != nil {

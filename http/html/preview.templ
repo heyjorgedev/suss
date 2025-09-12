@@ -1,0 +1,26 @@
+package html
+
+import "github.com/heyjorgedev/suss"
+
+type PreviewPageProps struct {
+	Url      string
+	ShortURL *suss.ShortURL
+}
+
+templ PreviewPage(props PreviewPageProps) {
+	@html() {
+		@head() {
+			<title>Short a Link | SuSS</title>
+			@ogImage()
+		}
+		@body() {
+			@header()
+			<main class="max-w-7xl mx-auto px-6">
+				<div class="text-xl">{ props.ShortURL.LongURL }</div>
+				<div>
+					<a href={ props.Url } class="hover:underline">{ props.Url }</a>
+				</div>
+			</main>
+		}
+	}
+}
