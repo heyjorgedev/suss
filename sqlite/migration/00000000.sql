@@ -3,7 +3,7 @@ CREATE TABLE short_urls (
 	slug TEXT UNIQUE NOT NULL,
 	long_url TEXT NOT NULL,
 	secret_key TEXT NOT NULL,
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+	created_at    TEXT NOT NULL,
+	updated_at    TEXT NOT NULL
 );
 

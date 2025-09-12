@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"math/big"
+	"strings"
 
 	"github.com/heyjorgedev/suss"
 )
@@ -32,6 +33,37 @@ func (s *ShortURLService) Create(ctx context.Context, shortURL *suss.ShortURL) e
 	}
 
 	return tx.Commit()
+}
+
+func (s *ShortURLService) FindShortUrls(ctx context.Context, filter suss.ShortURLFilter) ([]*suss.ShortURL, int, error) {
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		return nil, 0, err
+	}
+	defer tx.Rollback()
+
+	// Fetch list of matching dial objects.
+	shortUrls, n, err := findShortUrls(ctx, tx, filter)
+	if err != nil {
+		return shortUrls, n, err
+	}
+
+	return shortUrls, n, nil
+}
+
+func (s *ShortURLService) FindDialBySlug(ctx context.Context, slug string) (*suss.ShortURL, error) {
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		return nil, err
+	}
+	defer tx.Rollback()
+
+	shortUrl, err := findShortUrlBySlug(ctx, tx, slug)
+	if err != nil {
+		return nil, err
+	}
+
+	return shortUrl, nil
 }
 
 func shortUrlCreate(ctx context.Context, tx *Tx, s *suss.ShortURL) error {
@@ -125,4 +157,52 @@ func shortUrlGenerateSecretKey(tx *Tx) (string, error) {
 
 	// Use URL-safe base64
 	return base64.RawURLEncoding.EncodeToString(secret), nil
+}
+
+func findShortUrls(ctx context.Context, tx *Tx, filter suss.ShortURLFilter) ([]*suss.ShortURL, int, error) {
+	where, args := []string{"1 = 1"}, []interface{}{}
+	if v := filter.Slug; v != nil {
+		where, args = append(where, "slug = ?"), append(args, *v)
+	}
+
+	rows, err := tx.QueryContext(ctx, `
+		SELECT id, slug, long_url, secret_key, created_at, updated_at, COUNT(*) OVER()
+		FROM short_urls
+		WHERE `+strings.Join(where, " AND "), args...)
+	if err != nil {
+		return nil, 0, err
+	}
+	defer rows.Close()
+
+	n := 0
+	shortUrls := make([]*suss.ShortURL, 0)
+	for rows.Next() {
+		var shortUrl suss.ShortURL
+		if err := rows.Scan(
+			&shortUrl.ID,
+			&shortUrl.Slug,
+			&shortUrl.LongURL,
+			&shortUrl.SecretKey,
+			(*NullTime)(&shortUrl.CreatedAt),
+			(*NullTime)(&shortUrl.UpdatedAt),
+			&n,
+		); err != nil {
+			return nil, 0, err
+		}
+		shortUrls = append(shortUrls, &shortUrl)
+	}
+
+	return shortUrls, 0, nil
+}
+
+func findShortUrlBySlug(ctx context.Context, tx *Tx, slug string) (*suss.ShortURL, error) {
+	shortUrls, _, err := findShortUrls(ctx, tx, suss.ShortURLFilter{Slug: &slug})
+	if err != nil {
+		return nil, err
+	}
+	if len(shortUrls) == 0 {
+		return nil, &suss.Error{Code: suss.ENOTFOUND, Message: "Short Url not found."}
+	}
+
+	return shortUrls[0], nil
 }

@@ -38,9 +38,12 @@ func main() {
 }
 
 type Config struct {
+	Key string
+
 	DB struct {
 		DSN string
 	}
+
 	Hostname string
 	Port     int
 }

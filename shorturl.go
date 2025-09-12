@@ -19,6 +19,12 @@ func (s *ShortURL) Validate() error {
 	return nil
 }
 
+type ShortURLFilter struct {
+	Slug *string `json:"slug"`
+}
+
 type ShortURLService interface {
+	FindShortUrls(ctx context.Context, filter ShortURLFilter) ([]*ShortURL, int, error)
+	FindDialBySlug(ctx context.Context, slug string) (*ShortURL, error)
 	Create(ctx context.Context, shortURL *ShortURL) error
 }

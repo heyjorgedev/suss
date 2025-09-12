@@ -47,7 +47,13 @@ func (s *Server) handlerShortUrlPreview() http.HandlerFunc {
 			return
 		}
 
-		w.Write([]byte(slug + "preview"))
+		shortUrl, err := s.ShortURLService.FindDialBySlug(r.Context(), slug)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		w.Write([]byte(shortUrl.LongURL))
 	}
 }
 
@@ -59,6 +65,12 @@ func (s *Server) handlerShortUrlVisit() http.HandlerFunc {
 			return
 		}
 
-		w.Write([]byte(slug))
+		shortUrl, err := s.ShortURLService.FindDialBySlug(r.Context(), slug)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		http.Redirect(w, r, shortUrl.LongURL, http.StatusSeeOther)
 	}
 }
