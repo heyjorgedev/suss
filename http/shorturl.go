@@ -1,6 +1,7 @@
 package http
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -32,7 +33,7 @@ func (s *Server) handlerShortUrlCreate() http.HandlerFunc {
 			return
 		}
 
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		http.Redirect(w, r, fmt.Sprintf("/preview/%s", shortUrl.Slug), http.StatusSeeOther)
 	}))
 
 	return handler.ServeHTTP

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strconv"
 
 	"github.com/heyjorgedev/suss"
 	"github.com/heyjorgedev/suss/http"
@@ -12,7 +13,6 @@ import (
 )
 
 func main() {
-
 	suss.Version = "0.0.1"
 	suss.Commit = "1234567890"
 
@@ -37,7 +37,56 @@ func main() {
 	os.Exit(0)
 }
 
+type Config struct {
+	DB struct {
+		DSN string
+	}
+	Hostname string
+	Port     int
+}
+
+func DefaultConfig() *Config {
+	config := &Config{}
+
+	// database
+	config.DB.DSN = ":memory:"
+
+	// http
+	config.Hostname = "0.0.0.0"
+	config.Port = 8080
+
+	return config
+}
+
+func GetConfigFromEnv() (*Config, error) {
+	config := DefaultConfig()
+
+	dsn := os.Getenv("DB_DSN")
+	if dsn != "" {
+		config.DB.DSN = dsn
+	}
+
+	hostname := os.Getenv("HOSTNAME")
+	if hostname != "" {
+		config.Hostname = hostname
+	}
+
+	port := os.Getenv("PORT")
+	if port != "" {
+		portInt, err := strconv.Atoi(port)
+		if err != nil {
+			return config, fmt.Errorf("invalid port: %w", err)
+		}
+		config.Port = portInt
+	}
+
+	return config, nil
+}
+
 type Program struct {
+	// configuration
+	Config *Config
+
 	// sqlite database
 	DB *sqlite.DB
 
@@ -50,13 +99,22 @@ type Program struct {
 
 func NewProgram() *Program {
 	return &Program{
+		Config:     DefaultConfig(),
 		DB:         sqlite.NewDB(":memory:"),
 		HTTPServer: http.NewServer(),
 	}
 }
 
 func (p *Program) Run(ctx context.Context) error {
+	// load the config from the environment
+	config, err := GetConfigFromEnv()
+	if err != nil {
+		return fmt.Errorf("cannot load config: %w", err)
+	}
+	p.Config = config
+
 	// open the database, configure it and migrate to latest version
+	p.DB.DSN = p.Config.DB.DSN
 	if err := p.DB.Open(); err != nil {
 		return fmt.Errorf("cannot open db: %w", err)
 	}
@@ -68,11 +126,7 @@ func (p *Program) Run(ctx context.Context) error {
 	p.HTTPServer.ShortURLService = p.ShortURLService
 
 	// configure http server
-	p.HTTPServer.Addr = ":8080"
-	port := os.Getenv("PORT")
-	if port != "" {
-		p.HTTPServer.Addr = ":" + port
-	}
+	p.HTTPServer.Addr = fmt.Sprintf("%s:%d", p.Config.Hostname, p.Config.Port)
 
 	// start the http server
 	if err := p.HTTPServer.Open(); err != nil {
