@@ -141,6 +141,6 @@ func (s *Server) handlerShortUrlQrCode() http.HandlerFunc {
 		w.Header().Set("Content-Type", "image/png")
 		w.Header().Set("Cache-Control", "public, max-age=86400")
 		w.Header().Set("Expires", time.Now().Add(time.Hour*24).Format(http.TimeFormat))
-		q.Write(256, w)
+		q.Write(512, w)
 	}
 }
