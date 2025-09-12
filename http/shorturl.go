@@ -40,7 +40,7 @@ func (s *Server) handlerShortUrlCreate() http.HandlerFunc {
 			return
 		}
 
-		http.Redirect(w, r, fmt.Sprintf("/preview/%s", shortUrl.Slug), http.StatusSeeOther)
+		http.Redirect(w, r, fmt.Sprintf("/manage/%s?secret=%s", shortUrl.Slug, shortUrl.SecretKey), http.StatusSeeOther)
 	}))
 
 	return handler.ServeHTTP
@@ -82,5 +82,32 @@ func (s *Server) handlerShortUrlVisit() http.HandlerFunc {
 		}
 
 		http.Redirect(w, r, shortUrl.LongURL, http.StatusSeeOther)
+	}
+}
+
+func (s *Server) handlerShortUrlManage() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		slug := chi.URLParam(r, "slug")
+		if slug == "" {
+			http.Error(w, "slug required", http.StatusBadRequest)
+			return
+		}
+
+		secret := r.URL.Query().Get("secret")
+		if secret == "" {
+			http.Error(w, "secret required", http.StatusBadRequest)
+			return
+		}
+
+		shortUrl, err := s.ShortURLService.FindDialBySlug(r.Context(), slug)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		html.ManagePage(html.ManagePageProps{
+			Url:      shortUrl.ShortURL(s.PublicURL(r)),
+			ShortURL: shortUrl,
+		}).Render(r.Context(), w)
 	}
 }

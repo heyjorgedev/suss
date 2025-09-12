@@ -58,6 +58,7 @@ func NewServer() *Server {
 	r.Get("/", s.handlerHomepage())
 	r.Post("/shorten", s.handlerShortUrlCreate())
 	r.Get("/preview/{slug}", s.handlerShortUrlPreview())
+	r.Get("/manage/{slug}", s.handlerShortUrlManage())
 	r.Get("/{slug}+", s.handlerShortUrlPreview())
 	r.Get("/{slug}", s.handlerShortUrlVisit())
 

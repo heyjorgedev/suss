@@ -8,7 +8,14 @@ package html
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func Homepage() templ.Component {
+import "github.com/heyjorgedev/suss"
+
+type ManagePageProps struct {
+	Url      string
+	ShortURL *suss.ShortURL
+}
+
+func ManagePage(props ManagePageProps) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -87,7 +94,59 @@ func Homepage() templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, " <main class=\"max-w-7xl mx-auto px-6\"><div class=\"py-18 sm:py-24 lg:py-32 grid gap-4\"><h1 class=\"text-3xl sm:text-4xl lg:text-6xl font-medium tracking-tight lg:text-center\">Shorten URLs without the bloat.</h1><p class=\"lg:text-center\">A fast, simple, and privacy-friendly link shortener.</p></div><div class=\"max-w-4xl mx-auto\"><form method=\"post\" action=\"/shorten\"><div class=\"bg-zinc-200/80 dark:bg-zinc-800/60 rounded-xl p-2 flex flex-col sm:flex-row items-center gap-2 shadow-lg/2 ring-1 ring-zinc-100/80 dark:ring-zinc-800\"><input name=\"url\" type=\"url\" class=\"flex-1 min-h-16 bg-zinc-100 dark:bg-zinc-700 w-full rounded-lg text-lg font-medium p-4 placeholder:text-zinc-500 ring-1 ring-zinc-200 dark:ring-zinc-600 focus:outline-zinc-400 dark:focus:outline-zinc-500 focus:outline-solid outline-none\" placeholder=\"Paste here your long url\"> <button class=\"sm:-mt-2 w-full sm:w-auto mb-2 sm:mb-0 cursor-pointer bg-blue-600 rounded-lg relative after:absolute after:inset-0 after:-bottom-2 after:bg-blue-700 after:rounded-lg after:-z-10 isolate after:ring after:ring-inset after:ring-blue-600/50 hover:translate-y-0.5 hover:after:-translate-y-0.5 hover:after:top-0.5\"><div class=\"bg-blue-600 py-4 px-6 rounded-lg text-white ring ring-inset ring-blue-500/80 font-semibold\">Make it short</div></button></div></form></div><div class=\"pt-16 sm:pt-24 lg:pt-32\"><h1 class=\"text-2xl sm:text-3xl font-medium tracking-tight lg:text-center\">Recently created by you</h1><div class=\"mt-12 px-6 border rounded-xl border-zinc-300 dark:border-zinc-700 divide-y divide-zinc-300 dark:divide-zinc-700\"><div class=\"py-6\">TODO: Implement this</div><div class=\"py-6\">TODO: Implement this</div><div class=\"py-6\">TODO: Implement this</div><div class=\"py-6\">TODO: Implement this</div><div class=\"py-6\">TODO: Implement this</div><div class=\"py-6\">TODO: Implement this</div><div class=\"py-6\">TODO: Implement this</div><div class=\"py-6\">TODO: Implement this</div><div class=\"py-6\">TODO: Implement this</div><div class=\"py-6\">TODO: Implement this</div></div></div></main>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, " <main class=\"max-w-7xl mx-auto px-6\"><div class=\"flex gap-12 items-center\"><div class=\"aspect-square bg-white border border-zinc-200 h-64 rounded-xl\"></div><div class=\"flex-1\"><div class=\"grid gap-4\"><h1 class=\"text-2xl font-medium pb-2 tracking-tight\">Manage your link</h1><div><h2 class=\"text-lg font-medium\">Here is your Short Url:</h2><a href=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var5 templ.SafeURL
+				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinURLErrs(props.Url)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 26, Col: 27}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\" class=\"text-sm text-blue-600 hover:underline\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var6 string
+				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(props.Url)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 26, Col: 87}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</a></div><div><h2 class=\"text-lg font-medium\">It will take your visitors to:</h2><a href=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var7 templ.SafeURL
+				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinURLErrs(props.ShortURL.LongURL)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 30, Col: 40}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\" class=\"text-sm text-blue-600 hover:underline\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var8 string
+				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(props.ShortURL.LongURL)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 30, Col: 113}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</a></div></div></div></div></main>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
