@@ -10,6 +10,7 @@ import (
 	"github.com/benbjohnson/hashfs"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/httprate"
 	"github.com/heyjorgedev/suss"
 	"github.com/heyjorgedev/suss/http/dist"
 	"github.com/heyjorgedev/suss/http/html"
@@ -42,6 +43,7 @@ func NewServer() *Server {
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Logger)
 	r.Use(middleware.GetHead)
+	r.Use(httprate.LimitByIP(100, time.Minute))
 	r.Use(middleware.Recoverer)
 
 	// setup a timeout

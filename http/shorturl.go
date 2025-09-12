@@ -2,13 +2,16 @@ package http
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/httprate"
 	"github.com/heyjorgedev/suss"
 )
 
 func (s *Server) handlerShortUrlCreate() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+	rateLimiter := httprate.NewRateLimiter(5, time.Minute, httprate.WithKeyByIP())
+	handler := rateLimiter.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		err := r.ParseForm()
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -30,7 +33,9 @@ func (s *Server) handlerShortUrlCreate() http.HandlerFunc {
 		}
 
 		http.Redirect(w, r, "/", http.StatusSeeOther)
-	}
+	}))
+
+	return handler.ServeHTTP
 }
 
 func (s *Server) handlerShortUrlPreview() http.HandlerFunc {
