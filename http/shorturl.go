@@ -9,7 +9,7 @@ import (
 	"github.com/go-chi/httprate"
 	"github.com/heyjorgedev/suss"
 	"github.com/heyjorgedev/suss/http/html"
-	"github.com/heyjorgedev/suss/utils/qrcode"
+	qrcode "github.com/skip2/go-qrcode"
 )
 
 func (s *Server) handlerHomepage() http.HandlerFunc {
@@ -132,7 +132,7 @@ func (s *Server) handlerShortUrlQrCode() http.HandlerFunc {
 			return
 		}
 
-		png, err := qrcode.CreatePng(shortUrl.ShortURL(s.PublicURL(r)))
+		q, err := qrcode.New(shortUrl.ShortURL(s.PublicURL(r)), qrcode.Medium)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -141,6 +141,6 @@ func (s *Server) handlerShortUrlQrCode() http.HandlerFunc {
 		w.Header().Set("Content-Type", "image/png")
 		w.Header().Set("Cache-Control", "public, max-age=86400")
 		w.Header().Set("Expires", time.Now().Add(time.Hour*24).Format(http.TimeFormat))
-		w.Write(png)
+		q.Write(256, w)
 	}
 }
