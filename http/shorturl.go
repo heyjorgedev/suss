@@ -9,6 +9,7 @@ import (
 	"github.com/go-chi/httprate"
 	"github.com/heyjorgedev/suss"
 	"github.com/heyjorgedev/suss/http/html"
+	"github.com/heyjorgedev/suss/utils/qrcode"
 )
 
 func (s *Server) handlerHomepage() http.HandlerFunc {
@@ -105,9 +106,41 @@ func (s *Server) handlerShortUrlManage() http.HandlerFunc {
 			return
 		}
 
+		if secret != shortUrl.SecretKey {
+			http.Error(w, "invalid secret", http.StatusBadRequest)
+			return
+		}
+
 		html.ManagePage(html.ManagePageProps{
 			Url:      shortUrl.ShortURL(s.PublicURL(r)),
 			ShortURL: shortUrl,
 		}).Render(r.Context(), w)
+	}
+}
+
+func (s *Server) handlerShortUrlQrCode() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		slug := chi.URLParam(r, "slug")
+		if slug == "" {
+			http.Error(w, "slug required", http.StatusBadRequest)
+			return
+		}
+
+		shortUrl, err := s.ShortURLService.FindDialBySlug(r.Context(), slug)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		png, err := qrcode.CreatePng(shortUrl.ShortURL(s.PublicURL(r)))
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "image/png")
+		w.Header().Set("Cache-Control", "public, max-age=86400")
+		w.Header().Set("Expires", time.Now().Add(time.Hour*24).Format(http.TimeFormat))
+		w.Write(png)
 	}
 }

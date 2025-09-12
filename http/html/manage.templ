@@ -1,6 +1,9 @@
 package html
 
-import "github.com/heyjorgedev/suss"
+import (
+	"fmt"
+	"github.com/heyjorgedev/suss"
+)
 
 type ManagePageProps struct {
 	Url      string
@@ -16,8 +19,10 @@ templ ManagePage(props ManagePageProps) {
 		@body() {
 			@header()
 			<main class="max-w-7xl mx-auto px-6">
-				<div class="flex gap-12 items-center">
-					<div class="aspect-square bg-white border border-zinc-200 h-64 rounded-xl"></div>
+				<div class="flex flex-col sm:flex-row gap-12 sm:items-center py-24">
+					<div class="aspect-square bg-white border border-zinc-200 sm:h-64 rounded-xl overflow-hidden">
+						<img src={ fmt.Sprintf("/qrcode/%s.png", props.ShortURL.Slug) } class="w-full aspect-square" alt="QR Code"/>
+					</div>
 					<div class="flex-1">
 						<div class="grid gap-4">
 							<h1 class="text-2xl font-medium pb-2 tracking-tight">Manage your link</h1>

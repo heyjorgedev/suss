@@ -59,6 +59,7 @@ func NewServer() *Server {
 	r.Post("/shorten", s.handlerShortUrlCreate())
 	r.Get("/preview/{slug}", s.handlerShortUrlPreview())
 	r.Get("/manage/{slug}", s.handlerShortUrlManage())
+	r.Get("/qrcode/{slug}.png", s.handlerShortUrlQrCode())
 	r.Get("/{slug}+", s.handlerShortUrlPreview())
 	r.Get("/{slug}", s.handlerShortUrlVisit())
 
