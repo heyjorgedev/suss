@@ -19,20 +19,23 @@ templ ManagePage(props ManagePageProps) {
 		@body() {
 			@header()
 			<main class="max-w-7xl mx-auto px-6">
-				<div class="grid gap-12 py-24">
-					<div class="flex flex-col sm:flex-row gap-12 sm:items-center">
-						<div class="aspect-square bg-white border border-zinc-200 sm:h-64 rounded-xl overflow-hidden">
+				<div class="grid gap-12 py-12">
+					<div>
+						<h1 class="text-3xl font-semibold tracking-tight pb-1.5">Manage your link</h1>
+						<p class="text-zinc-600 dark:text-zinc-500">TODO</p>
+					</div>
+					<div class="flex flex-col sm:flex-row gap-6 border rounded-xl border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-lg/2">
+						<div class="aspect-square bg-white border border-zinc-200 sm:h-36 rounded-lg overflow-hidden shadow-lg/2">
 							<img src={ fmt.Sprintf("/qrcode/%s.png", props.ShortURL.Slug) } class="w-full aspect-square" alt="QR Code"/>
 						</div>
-						<div class="flex-1">
-							<div class="grid gap-4">
-								<h1 class="text-2xl font-medium pb-2 tracking-tight">Manage your link</h1>
+						<div class="flex-1 sm:py-2">
+							<div class="grid gap-2">
 								<div>
-									<h2 class="text-lg font-medium">Here is your Short Url:</h2>
+									<h2 class="font-medium">Your short url:</h2>
 									<a href={ props.Url } class="text-sm text-blue-600 hover:underline">{ props.Url }</a>
 								</div>
 								<div>
-									<h2 class="text-lg font-medium">It will take your visitors to:</h2>
+									<h2 class="font-medium">The destination is:</h2>
 									<a href={ props.ShortURL.LongURL } class="text-sm text-blue-600 hover:underline">{ props.ShortURL.LongURL }</a>
 								</div>
 							</div>
@@ -45,20 +48,22 @@ templ ManagePage(props ManagePageProps) {
 						</div>
 						<div class="grid gap-6 lg:grid-cols-3">
 							<div class="p-6 border shadow-lg/2 border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900">
-								<h2 class="font-medium">Clicks</h2>
-								<span class="text-2xl">-</span>
+								<h2 class="font-medium text-sm pb-2">Total Clicks</h2>
+								<span class="text-4xl">0</span>
 							</div>
 							<div class="p-6 border shadow-lg/2 border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900">
-								<h2 class="font-medium">Clicks</h2>
-								<span class="text-2xl">-</span>
+								<h2 class="font-medium text-sm pb-2">Total Clicks</h2>
+								<span class="text-4xl">0</span>
 							</div>
 							<div class="p-6 border shadow-lg/2 border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900">
-								<h2 class="font-medium">Clicks</h2>
-								<span class="text-2xl">-</span>
+								<h2 class="font-medium text-sm pb-2">Total Clicks</h2>
+								<span class="text-4xl">0</span>
 							</div>
 							<div class="p-6 border shadow-lg/2 border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 lg:col-span-3">
-								<h2 class="font-medium">Latest visits</h2>
-								<span class="text-2xl">-</span>
+								<h2 class="font-medium text-sm pb-2">Latest visits</h2>
+								<div>
+									Hello World
+								</div>
 							</div>
 						</div>
 					</div>
