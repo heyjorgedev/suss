@@ -23,7 +23,7 @@ type Error struct {
 }
 
 func (e *Error) Error() string {
-	return fmt.Sprintf("wtf error: code=%s message=%s", e.Code, e.Message)
+	return fmt.Sprintf("suss error: code=%s message=%s", e.Code, e.Message)
 }
 
 func ErrorCode(err error) string {
@@ -51,4 +51,14 @@ func Errorf(code string, format string, args ...interface{}) *Error {
 		Code:    code,
 		Message: fmt.Sprintf(format, args...),
 	}
+}
+
+func ErrorIsNotFound(err error) bool {
+	var e *Error
+	if err == nil {
+		return false
+	} else if errors.As(err, &e) {
+		return e.Code == ENOTFOUND
+	}
+	return false
 }

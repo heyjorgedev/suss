@@ -97,14 +97,14 @@ func ManagePage(props ManagePageProps) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, " <main class=\"max-w-7xl mx-auto px-6\"><div class=\"flex flex-col sm:flex-row gap-12 sm:items-center py-24\"><div class=\"aspect-square bg-white border border-zinc-200 sm:h-64 rounded-xl overflow-hidden\"><img src=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, " <main class=\"max-w-7xl mx-auto px-6\"><div class=\"grid gap-12 py-24\"><div class=\"flex flex-col sm:flex-row gap-12 sm:items-center\"><div class=\"aspect-square bg-white border border-zinc-200 sm:h-64 rounded-xl overflow-hidden\"><img src=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/qrcode/%s.png", props.ShortURL.Slug))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 24, Col: 67}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 25, Col: 68}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -117,7 +117,7 @@ func ManagePage(props ManagePageProps) templ.Component {
 				var templ_7745c5c3_Var6 templ.SafeURL
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinURLErrs(props.Url)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 31, Col: 27}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 32, Col: 28}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -130,7 +130,7 @@ func ManagePage(props ManagePageProps) templ.Component {
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(props.Url)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 31, Col: 87}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 32, Col: 88}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -143,7 +143,7 @@ func ManagePage(props ManagePageProps) templ.Component {
 				var templ_7745c5c3_Var8 templ.SafeURL
 				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinURLErrs(props.ShortURL.LongURL)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 35, Col: 40}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 36, Col: 41}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 				if templ_7745c5c3_Err != nil {
@@ -156,13 +156,13 @@ func ManagePage(props ManagePageProps) templ.Component {
 				var templ_7745c5c3_Var9 string
 				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(props.ShortURL.LongURL)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 35, Col: 113}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `http/html/manage.templ`, Line: 36, Col: 114}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</a></div></div></div></div></main>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</a></div></div></div></div><div class=\"grid gap-8\"><div><h1 class=\"text-3xl font-semibold tracking-tight pb-1.5\">Analytics</h1><p class=\"text-zinc-600 dark:text-zinc-500\">TODO</p></div><div class=\"grid gap-6 lg:grid-cols-3\"><div class=\"p-6 border shadow-lg/2 border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900\"><h2 class=\"font-medium\">Clicks</h2><span class=\"text-2xl\">-</span></div><div class=\"p-6 border shadow-lg/2 border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900\"><h2 class=\"font-medium\">Clicks</h2><span class=\"text-2xl\">-</span></div><div class=\"p-6 border shadow-lg/2 border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900\"><h2 class=\"font-medium\">Clicks</h2><span class=\"text-2xl\">-</span></div><div class=\"p-6 border shadow-lg/2 border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 lg:col-span-3\"><h2 class=\"font-medium\">Latest visits</h2><span class=\"text-2xl\">-</span></div></div></div></div></main>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

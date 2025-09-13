@@ -51,13 +51,13 @@ func (s *Server) handlerShortUrlPreview() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		slug := chi.URLParam(r, "slug")
 		if slug == "" {
-			http.Error(w, "slug required", http.StatusBadRequest)
+			s.Error(w, r, suss.Errorf(suss.EINVALID, "slug required"))
 			return
 		}
 
 		shortUrl, err := s.ShortURLService.FindDialBySlug(r.Context(), slug)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			s.Error(w, r, err)
 			return
 		}
 
@@ -72,13 +72,13 @@ func (s *Server) handlerShortUrlVisit() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		slug := chi.URLParam(r, "slug")
 		if slug == "" {
-			http.Error(w, "slug required", http.StatusBadRequest)
+			s.Error(w, r, suss.Errorf(suss.EINVALID, "slug required"))
 			return
 		}
 
 		shortUrl, err := s.ShortURLService.FindDialBySlug(r.Context(), slug)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			s.Error(w, r, err)
 			return
 		}
 
@@ -90,24 +90,24 @@ func (s *Server) handlerShortUrlManage() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		slug := chi.URLParam(r, "slug")
 		if slug == "" {
-			http.Error(w, "slug required", http.StatusBadRequest)
+			s.Error(w, r, suss.Errorf(suss.EINVALID, "slug required"))
 			return
 		}
 
 		secret := r.URL.Query().Get("secret")
 		if secret == "" {
-			http.Error(w, "secret required", http.StatusBadRequest)
+			s.Error(w, r, suss.Errorf(suss.EINVALID, "secret required"))
 			return
 		}
 
 		shortUrl, err := s.ShortURLService.FindDialBySlug(r.Context(), slug)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			s.Error(w, r, err)
 			return
 		}
 
 		if secret != shortUrl.SecretKey {
-			http.Error(w, "invalid secret", http.StatusBadRequest)
+			s.Error(w, r, suss.Errorf(suss.EINVALID, "invalid secret"))
 			return
 		}
 
@@ -122,19 +122,19 @@ func (s *Server) handlerShortUrlQrCode() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		slug := chi.URLParam(r, "slug")
 		if slug == "" {
-			http.Error(w, "slug required", http.StatusBadRequest)
+			w.WriteHeader(http.StatusNotFound)
 			return
 		}
 
 		shortUrl, err := s.ShortURLService.FindDialBySlug(r.Context(), slug)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			w.WriteHeader(http.StatusNotFound)
 			return
 		}
 
 		q, err := qrcode.New(shortUrl.ShortURL(s.PublicURL(r)), qrcode.Medium)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			w.WriteHeader(http.StatusNotFound)
 			return
 		}
 
