@@ -30,7 +30,7 @@ templ Homepage() {
 				</div>
 				<div class="pt-16 sm:pt-24 lg:pt-32">
 					<h1 class="text-2xl sm:text-3xl font-medium tracking-tight lg:text-center">Recently created by you</h1>
-					<div class="mt-12 px-6 border rounded-xl border-zinc-200 dark:border-zinc-700 divide-y divide-zinc-300 dark:divide-zinc-700 bg-white dark:bg-zinc-900 shadow-lg/2">
+					<div class="mt-12 md:mt-20 px-6 border rounded-xl border-zinc-200 dark:border-zinc-700 divide-y divide-zinc-300 dark:divide-zinc-700 bg-white dark:bg-zinc-900 shadow-lg/2">
 						@homepageShortUrlListItem()
 						@homepageShortUrlListItem()
 						@homepageShortUrlListItem()
@@ -49,7 +49,9 @@ templ Homepage() {
 templ homepageShortUrlListItem() {
 	<div class="py-6 flex gap-4 text-sm items-center justify-between">
 		<div class="flex gap-4 items-center">
-			<div class="size-12 border rounded-lg border-zinc-200 dark:border-zinc-800"></div>
+			<div class="size-12 border rounded-lg border-zinc-200 dark:border-zinc-800 overflow-hidden">
+				<img src="https://icon.horse/icon/suss-production.up.railway.app" class="size-12" alt="Icon"/>
+			</div>
 			<div>
 				<div class="font-semibold">Title</div>
 				<a class="text-blue-600 hover:underline" href="#">https://example.com</a>
